@@ -1,0 +1,54 @@
+import java.util.Random;
+import javax.swing.JOptionPane;
+public class Randomcheck {
+    public static void main(String[] args) {
+        int c=0;
+        int roundswon=0;
+        int totalattempts=0;
+        boolean playagain;
+        int maxattempt=3;
+        int number;
+        do{
+        int attempt=0;
+        boolean correctguess=false;
+        Random r=new Random();
+        int randint=r.nextInt(100);
+        System.out.println("random number is"+randint);
+        while(attempt<maxattempt){
+            String n=JOptionPane.showInputDialog("attempt number is"+(attempt+1));
+            if(n!=null){
+                try{
+                    number=Integer.parseInt(n);
+                    attempt++;
+                    totalattempts++;
+                    JOptionPane.showMessageDialog(null, "input number"+ number+ "!!!!!!");
+                    if(randint==number){
+                        System.out.println("random number matches with input number");
+                        roundswon++;
+                        correctguess=true;
+                        break;
+                    }
+                    else if(number<randint){
+                        JOptionPane.showMessageDialog(null,"input number is too low");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null,"input number is too high");
+                    }
+                }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null,"please enter a valid number");
+                }
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "No input given. Exiting.");
+                break;
+            }
+        }
+        if(!correctguess){
+            JOptionPane.showMessageDialog(null, "your attempts are over");
+        }
+        int response=JOptionPane.showConfirmDialog(null,"do you want to play another round?","play again",JOptionPane.YES_NO_OPTION);
+        playagain=(response==JOptionPane.YES_OPTION);
+    }while(playagain);
+    JOptionPane.showMessageDialog(null,"game over"+roundswon+"out of"+totalattempts);
+}
+}
